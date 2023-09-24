@@ -1,29 +1,74 @@
-// esta clase está completa, no necesita nada más
+import universidades.*
+
 class ProfesionalAsociado {
-	var universidad
+	var property universidad
+	const asociacion = asociacionDeProfecionalesDelLitoral
 	
-	method universidad() { return universidad }
-	method universidad(univ) { universidad = univ }
+	method asociacion() = asociacion
 	
-	method provinciasDondePuedeTrabajar() { return #{"Entre Ríos", "Corrientes", "Santa Fe"} }
+	method provinciasDondePuedeTrabajar() {
+		return #{"Entre Ríos", "Santa Fe","Corrientes"}
+	}
 	
-	method honorariosPorHora() { return 3000 }
+	method honorariosPorHora() {
+		return 3000
+	}
+	
+	method cobros(dinero){
+		asociacion.totalRecaudado(dinero)
+	}
 }
 
-
-// a esta clase le faltan métodos
 class ProfesionalVinculado {
-	var universidad
+	var property universidad
 	
-	method universidad() { return universidad }
-	method universidad(univ) { universidad = univ }
+	method provinciasDondePuedeTrabajar(){
+		return #{universidad.provincias()}
+	}
+
+	method honorariosPorHora() = universidad.honorariosRecomendados()
+
+	method cobros(dinero){
+		universidad.totalRecibidoPorDonaciones(dinero / 2)
+	}
+
 }
 
-
-// a esta clase le faltan atributos y métodos
 class ProfesionalLibre {
-	var universidad
+	var property universidad
+	const provincias = #{}
+	var property honorariosPorHora
+	var totalRecaudado = 0
 	
-	method universidad() { return universidad }
-	method universidad(univ) { universidad = univ }
+	method totalRecaudado() = totalRecaudado
+	
+	method provinciasDondePuedeTrabajar() = provincias
+	method agregarProvincia(prov){
+		provincias.add(prov)
+	}
+	method quitarProvincia(prov){
+		provincias.remove(prov)
+	}
+	
+	method cobros(dinero){
+		totalRecaudado += dinero
+	}
+	
+	method pasarDinero(persLibre,cant){
+		if (totalRecaudado < cant){
+			self.error("No tiene la cantida suficiente")
+		}
+		totalRecaudado -= cant
+		persLibre.cobro(cant)
+	}
+}
+
+object asociacionDeProfecionalesDelLitoral{
+	var totalRecaudado = 0
+	
+	method totalRecaudado() = totalRecaudado
+	
+	method totalRecaudado(cant){
+		totalRecaudado += cant
+	}
 }
