@@ -14,7 +14,7 @@ class ProfesionalAsociado {
 		return 3000
 	}
 	
-	method cobros(dinero){
+	method cobrar(dinero){
 		asociacion.totalRecaudado(dinero)
 	}
 }
@@ -28,7 +28,7 @@ class ProfesionalVinculado {
 
 	method honorariosPorHora() = universidad.honorariosRecomendados()
 
-	method cobros(dinero){
+	method cobrar(dinero){
 		universidad.totalRecibidoPorDonaciones(dinero / 2)
 	}
 
@@ -43,14 +43,16 @@ class ProfesionalLibre {
 	method totalRecaudado() = totalRecaudado
 	
 	method provinciasDondePuedeTrabajar() = provincias
+	
 	method agregarProvincia(prov){
 		provincias.add(prov)
 	}
+	
 	method quitarProvincia(prov){
 		provincias.remove(prov)
 	}
 	
-	method cobros(dinero){
+	method cobrar(dinero){
 		totalRecaudado += dinero
 	}
 	
